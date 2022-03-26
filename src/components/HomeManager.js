@@ -143,9 +143,9 @@ const HomeStaff = () => {
         <Stack direction="column">
           <Box>
             {/* <CardLayout2> */}
-            <LineChart width={400} height={400} data={data}>
+            {/* <LineChart width={400} height={400} data={data}>
               <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-            </LineChart>
+            </LineChart> */}
             {/* </CardLayout2> */}
           </Box>
           <Box>
