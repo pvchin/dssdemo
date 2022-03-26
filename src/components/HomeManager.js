@@ -13,6 +13,10 @@ import {
   Stack,
   Spacer,
 } from "@chakra-ui/react";
+
+import { LineChart, Line } from 'recharts';
+
+
 import { TextField, Paper, Container } from "@material-ui/core";
 import CardLayout from "../helpers/CardLayout";
 import CardLayout2 from "../helpers/CardLayout2";
@@ -73,6 +77,9 @@ const HomeStaff = () => {
   const { isEditing, setEditEmployeeID, setIsEditingOn } =
     useEmployeesContext();
 
+  
+  
+  
   const handleLeaveDialogOpen = () => {
     setLeavesdata([]);
     setLeavesdata([...leaves]);
@@ -122,64 +129,9 @@ const HomeStaff = () => {
     setIsEditingOn();
   }, []);
 
-  // const items = [
-  //   {
-  //     itemno: "A000111",
-  //     desp: "Bottle ABC",
-  //     expiry: "23/02/2022",
-  //     qty: 10,
-  //     minqty: 15,
-  //     tobeexpiry: true,
-  //     toorder: true,
-  //     status: "In Stock",
-  //     supplier: "ABC Supplier",
-  //   },
-  //   {
-  //     itemno: "B000111",
-  //     desp: "Bottle ABC",
-  //     expiry: "23/04/2022",
-  //     qty: 5,
-  //     minqty: 10,
-  //     toorder: true,
-  //     tobeexpiry: false,
-  //     status: "In Stock",
-  //     supplier: "ABC Supplier",
-  //   },
-  //   {
-  //     itemno: "D000111",
-  //     desp: "Bottle ABC",
-  //     expiry: "23/02/2022",
-  //     qty: 15,
-  //     minqty: 10,
-  //     toorder: false,
-  //     tobeexpiry: true,
-  //     status: "In Stock",
-  //     supplier: "ABC Supplier",
-  //   },
-  //   {
-  //     itemno: "E000111",
-  //     desp: "Bottle ABC",
-  //     expiry: "23/02/2022",
-  //     qty: 25,
-  //     minqty: 5,
-  //     tobeexpiry: true,
-  //     toorder: false,
-  //     status: "In Stock",
-  //     supplier: "ABC Supplier",
-  //   },
-  //   {
-  //     itemno: "F000111",
-  //     desp: "Bottle ABC",
-  //     expiry: "23/05/2022",
-  //     qty: 30,
-  //     minqty: 15,
-  //     tobeexpiry: false,
-  //     toorder: false,
-  //     status: "In Stock",
-  //     supplier: "ABC Supplier",
-  //   },
-  // ];
+  const data = [{ name: "Page A", uv: 400, pv: 2400, amt: 2400 }];
 
+  
   return (
     <div>
       <div className={classes.appBarSpacer} />
@@ -189,6 +141,13 @@ const HomeStaff = () => {
       </div>
       <Container maxWidth="xl" className={classes.container}>
         <Stack direction="column">
+          <Box>
+            {/* <CardLayout2> */}
+            <LineChart width={400} height={400} data={data}>
+              <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+            </LineChart>
+            {/* </CardLayout2> */}
+          </Box>
           <Box>
             <CardLayout2>
               <Grid direction="row">

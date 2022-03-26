@@ -19,6 +19,19 @@ import {
   TabPanel,
   Text,
 } from "@chakra-ui/react";
+import {
+  BarChart,
+  Bar,
+  Cell,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
 import CardLayout from "../helpers/CardLayout";
 import CardLayout2 from "../helpers/CardLayout2";
 import CardLayout4 from "../helpers/CardLayout4";
@@ -26,7 +39,7 @@ import Copyright from "./Copyright";
 import { CustomDialog } from "../helpers/CustomDialog";
 import { useRecoilState } from "recoil";
 import { loginLevelState } from "./data/atomdata";
-import BarChart from "../helpers/BarChart";
+//import BarChart from "../helpers/BarChart";
 import BarChartStack from "../helpers/BarChartStack";
 import EmployeeTableLeaveView from "./EmployeeTableLeaveView";
 import ExpensesTableViewSummary from "./ExpenseTableViewSummary";
@@ -44,7 +57,24 @@ import ExportLeave2Excel from "./ExportLeave2Excel";
 const drawerWidth = 240;
 
 const FILTERSTRING = "Pending";
-
+const barchartdata = [
+  { y: "2006", "Total Income": 100, "Total Outcome": 90 },
+  { y: "2007", "Total Income": 75, "Total Outcome": 65 },
+  { y: "2008", "Total Income": 50, "Total Outcome": 40 },
+  { y: "2009", "Total Income": 75, "Total Outcome": 65 },
+  { y: "2010", "Total Income": 50, "Total Outcome": 40 },
+  { y: "2011", "Total Income": 75, "Total Outcome": 65 },
+  { y: "2012", "Total Income": 100, "Total Outcome": 90 },
+];
+const linechartdata = [
+  { y: "2006", "Total Sales": 50, "Total Revenue": 90 },
+  { y: "2007", "Total Sales": 75, "Total Revenue": 65 },
+  { y: "2008", "Total Sales": 50, "Total Revenue": 40 },
+  { y: "2009", "Total Sales": 75, "Total Revenue": 65 },
+  { y: "2010", "Total Sales": 50, "Total Revenue": 40 },
+  { y: "2011", "Total Sales": 75, "Total Revenue": 65 },
+  { y: "2012", "Total Sales": 100, "Total Revenue": 50 },
+];
 const months = [
   "Jan",
   "Feb",
