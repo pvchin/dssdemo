@@ -255,6 +255,20 @@ export const assets = [
     despatchdate: "",
     receiveddate: "2022-03-15",
   },
+  {
+    itemno: "AJ32222",
+    desp: "Bottle AJ3222",
+    expiry: "2022-11-11",
+    qty: 30,
+    minqty: 10,
+    tobeexpiry: false,
+    toorder: false,
+    status: "Despatched",
+    supplier: "BB Supplier",
+    despatched: "Warehouse",
+    despatchdate: "2022-01-31",
+    receiveddate: "2022-03-15",
+  },
 ];
 
 

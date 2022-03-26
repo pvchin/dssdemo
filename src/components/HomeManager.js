@@ -14,9 +14,17 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 
-import { LineChart, Line } from 'recharts';
-
-
+import {
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 import { TextField, Paper, Container } from "@material-ui/core";
 import CardLayout from "../helpers/CardLayout";
 import CardLayout2 from "../helpers/CardLayout2";
@@ -77,9 +85,6 @@ const HomeStaff = () => {
   const { isEditing, setEditEmployeeID, setIsEditingOn } =
     useEmployeesContext();
 
-  
-  
-  
   const handleLeaveDialogOpen = () => {
     setLeavesdata([]);
     setLeavesdata([...leaves]);
@@ -129,9 +134,18 @@ const HomeStaff = () => {
     setIsEditingOn();
   }, []);
 
-  const data = [{ name: "Page A", uv: 400, pv: 2400, amt: 2400 }];
-
+  const data = [
+    {
+      name: "Assets",
+      InStock: 4,
+      Despatch: 3,
+      InProgress: 2,
+      Qty: 200
+    },
   
+  ];
+
+
   return (
     <div>
       <div className={classes.appBarSpacer} />
@@ -141,11 +155,33 @@ const HomeStaff = () => {
       </div>
       <Container maxWidth="xl" className={classes.container}>
         <Stack direction="column">
-          <Box>
+          <Box borderColor="black" borderWidth={1}>
+            <Heading p={2} size="lg">
+              Charts - Assets
+            </Heading>
             {/* <CardLayout2> */}
-            {/* <LineChart width={400} height={400} data={data}>
-              <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-            </LineChart> */}
+            {/* <ResponsiveContainer width="100%" height="100%"> */}
+            <BarChart
+              width={500}
+              height={300}
+              data={data}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="InStock" fill="#8884d8" />
+              <Bar dataKey="Despatch" fill="#82ca9d" />
+              <Bar dataKey="InProgress" fill="#00ffff" />
+            </BarChart>
+            {/* </ResponsiveContainer> */}
             {/* </CardLayout2> */}
           </Box>
           <Box>

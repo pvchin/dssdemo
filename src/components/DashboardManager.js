@@ -27,6 +27,8 @@ import ApprovalManager from "./ApprovalManager";
 import {
   Home,
   AllEmployees,
+  Assets,
+  Items,
   Leave,
   Expenses,
   Payslip,
@@ -92,6 +94,12 @@ export default function DashboardMain({
             {/* <Route exact path="/home">
               <Home />
             </Route> */}
+            <Route exact path="/items">
+              <Items />
+            </Route>
+            <Route exact path="/assets">
+              <Assets />
+            </Route>
             <Route exact path="/allemployees">
               <AllEmployees />
             </Route>

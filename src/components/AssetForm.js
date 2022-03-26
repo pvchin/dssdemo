@@ -3,6 +3,8 @@ import { Button, Icon, TextField, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useRecoilState } from "recoil";
 import * as emailjs from "emailjs-com";
+import QRCode from "react-qr-code";
+import { HStack} from "@chakra-ui/react"
 import { loginLevelState } from "./data/atomdata";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useEmployeesContext } from "../context/employees_context";
@@ -89,31 +91,36 @@ const ExpenseForm = ({ formdata, setFormdata, handleDialogClose }) => {
         {/* <Typography component="p">Expense Claim Application</Typography> */}
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <Controller
-              name="itemno"
-              control={control}
-              defaultValue={formdata.itemno}
-              render={({
-                field: { onChange, value },
-                fieldState: { error },
-              }) => {
-                return (
-                  <TextField
-                    label="Item No"
-                    id="margin-normal3"
-                    name="itemno"
-                    defaultValue={formdata.itemno}
-                    className={classes.textField}
-                    onChange={onChange}
-                    error={!!error}
-                    helperText={error ? error.message : null}
-                  />
-                );
-              }}
-              // rules={{ required: "Reason is required" }}
-            />
-          </div>
+          <HStack>
+            <div>
+              <Controller
+                name="itemno"
+                control={control}
+                defaultValue={formdata.itemno}
+                render={({
+                  field: { onChange, value },
+                  fieldState: { error },
+                }) => {
+                  return (
+                    <TextField
+                      label="Item No"
+                      id="margin-normal3"
+                      name="itemno"
+                      defaultValue={formdata.itemno}
+                      className={classes.textField}
+                      onChange={onChange}
+                      error={!!error}
+                      helperText={error ? error.message : null}
+                    />
+                  );
+                }}
+                // rules={{ required: "Reason is required" }}
+              />
+            </div>
+            <div>
+              <QRCode value={formdata.itemno} size="50" />
+            </div>
+          </HStack>
           <div>
             <Controller
               name="desp"
