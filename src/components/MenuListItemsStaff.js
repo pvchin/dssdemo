@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import { HStack, Button, Text } from "@chakra-ui/react"
+import { Text } from "@chakra-ui/react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -10,9 +9,7 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import FlightIcon from "@material-ui/icons/Flight";
 import PeopleIcon from "@material-ui/icons/People";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-//import LayersIcon from "@material-ui/icons/Layers";
+import LayersIcon from "@material-ui/icons/Layers";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MoneyIcon from "@material-ui/icons/Money";
@@ -21,23 +18,42 @@ import {
   FaPeopleCarry,
   FaCommentsDollar,
 } from "react-icons/fa";
-// import Collapse from "@material-ui/core/Collapse";
-// import ExpandLess from "@material-ui/icons/ExpandLess";
-// import ExpandMore from "@material-ui/icons/ExpandMore";
+import { List } from "@material-ui/core";
+import Collapse from "@material-ui/core/Collapse";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
 
-const drawerWidth = 0;
-
-const MenuListItemsStaff = () => {
+const MenuListItems = () => {
   const classes = useStyles();
-  const [openPay, setOpenPay] = useState(false);
-  const [openTable, setOpenTable] = useState(false);
+  const [openItem, setOpenItem] = useState(false);
+  const [openItemTable, setOpenItemTable] = useState(false);
+  const [openAsset, setOpenAsset] = useState(false);
+  const [openAssetTable, setOpenAssetTable] = useState(false);
+  const [openSample, setOpenSample] = useState(false);
+  const [openSampleTable, setOpenSampleTable] = useState(false);
 
-  const handleClickPay = () => {
-    setOpenPay(!openPay);
+  const handleClickItem = () => {
+    setOpenItem(!openItem);
   };
 
-  const handleClickTable = () => {
-    setOpenTable(!openTable);
+  const handleClickItemTable = () => {
+    setOpenItemTable(!openItemTable);
+  };
+
+  const handleClickAsset = () => {
+    setOpenAsset(!openAsset);
+  };
+
+  const handleClickAssetTable = () => {
+    setOpenAssetTable(!openAssetTable);
+  };
+
+  const handleClickSample = () => {
+    setOpenSample(!openSample);
+  };
+
+  const handleClickSampleTable = () => {
+    setOpenSampleTable(!openSampleTable);
   };
 
   return (
@@ -60,86 +76,132 @@ const MenuListItemsStaff = () => {
         </ListItem>
       </Link>
 
-      <Link to="/assets">
+      {/* <Link to="/allemployees">
         <ListItem button>
           <ListItemIcon className={classes.itemIcon}>
             <PeopleIcon />
           </ListItemIcon>
           <ListItemText
-            primary="Assets Table"
+            primary="All Employees"
             className={classes.categoryHeaderPrimary}
           />
         </ListItem>
-      </Link>
+      </Link> */}
 
-      <Link to="/despatch">
+      {/* <Link to="/leave">
         <ListItem button>
           <ListItemIcon className={classes.itemIcon}>
             <FlightIcon />
           </ListItemIcon>
           <ListItemText
-            primary="Desptaching Items"
+            primary="Leave"
             className={classes.categoryHeaderPrimary}
           />
         </ListItem>
-      </Link>
-      
+      </Link> */}
+      <ListItem button onClick={handleClickItemTable}>
+        <ListItemIcon className={classes.itemIcon}>
+          <LayersIcon />
+        </ListItemIcon>
+        <ListItemText primary="Items" className={classes.item} />
+        {openItemTable ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={openItemTable} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <Link to="/items">
+            <ListItem button className={classes.nested}>
+              <ListItemIcon></ListItemIcon>
+              <ListItemText primary="Items Table" className={classes.item} />
+            </ListItem>
+          </Link>
+        </List>
+      </Collapse>
 
-      <Link to="/receive">
+      <ListItem button onClick={handleClickAssetTable}>
+        <ListItemIcon className={classes.itemIcon}>
+          <LayersIcon />
+        </ListItemIcon>
+        <ListItemText primary="Assets" className={classes.item} />
+        {openAssetTable ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={openAssetTable} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <Link to="/assets">
+            <ListItem button className={classes.nested}>
+              <ListItemIcon></ListItemIcon>
+              <ListItemText primary="Assets Table" className={classes.item} />
+            </ListItem>
+          </Link>
+          <Link to="/despatch">
+            <ListItem button className={classes.nested}>
+              <ListItemIcon></ListItemIcon>
+              <ListItemText
+                primary="Despatching Assets"
+                className={classes.item}
+              />
+            </ListItem>
+          </Link>
+        </List>
+      </Collapse>
+
+      <ListItem button onClick={handleClickSampleTable}>
+        <ListItemIcon className={classes.itemIcon}>
+          <LayersIcon />
+        </ListItemIcon>
+        <ListItemText primary="Sampless" className={classes.item} />
+        {openSampleTable ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={openSampleTable} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <Link to="/samples">
+            <ListItem button className={classes.nested}>
+              <ListItemIcon></ListItemIcon>
+              <ListItemText primary="Samples Table" className={classes.item} />
+            </ListItem>
+          </Link>
+          {/* <Link to="/receive">
+            <ListItem button className={classes.nested}>
+              <ListItemIcon></ListItemIcon>
+              <ListItemText
+                primary="Receiving Samples"
+                className={classes.item}
+              />
+            </ListItem>
+          </Link> */}
+        </List>
+      </Collapse>
+
+      {/* <Link to="/expenses">
         <ListItem button>
           <ListItemIcon className={classes.itemIcon}>
-            <FaFileInvoiceDollar size="20" />
+            <ShoppingCartIcon />
           </ListItemIcon>
           <ListItemText
-            primary="Receiging Items"
-            className={classes.categoryHeaderPrimary}
-          />
-        </ListItem>
-      </Link>
-
-      {/* <Link to="/hoc">
-        <ListItem button>
-          <ListItemIcon className={classes.itemIcon}>
-            <FaFileInvoiceDollar size="20" />
-          </ListItemIcon>
-          <ListItemText
-            primary="Reports"
+            primary="Expenses"
             className={classes.categoryHeaderPrimary}
           />
         </ListItem>
       </Link> */}
 
-      {/* <Link to="/trainings">
+      {/* <Link to="/tables">
         <ListItem button>
           <ListItemIcon className={classes.itemIcon}>
-            <FaPeopleCarry size="20" />
-          </ListItemIcon>
-          <ListItemText
-            primary="Trainings"
-            className={classes.categoryHeaderPrimary}
-          />
-        </ListItem>
-      </Link> */}
-
-      {/* <Link to="/dailyallowances">
-        <ListItem button>
-          <ListItemIcon className={classes.itemIcon}>
-            <FaCommentsDollar size="20" />
-          </ListItemIcon>
-          <ListItemText
-            primary="Site Allowances"
-            className={classes.categoryHeaderPrimary}
-          />
-        </ListItem>
-      </Link> */}
-
-      {/* <Link to="/payslips">
-        <ListItem button>
-          <ListItemIcon className={classes.itemIcon}>
-            <MonetizationOnIcon />
+            <LayersIcon />
           </ListItemIcon>
           <ListItemText
             primary="Tables"
+            className={classes.categoryHeaderPrimary}
+          />
+        </ListItem>
+      </Link> */}
+
+      {/* <Link to="/example">
+        <ListItem button>
+          <ListItemIcon className={classes.itemIcon}>
+            <LayersIcon />
+          </ListItemIcon>
+          <ListItemText
+            primary="Example"
             className={classes.categoryHeaderPrimary}
           />
         </ListItem>
@@ -152,12 +214,6 @@ const useStyles = makeStyles((theme) => ({
   mainHeader: {
     fontSize: 24,
     color: "primary",
-  },
-  menuButton: {
-    marginRight: 36,
-  },
-  menuButtonHidden: {
-    display: "none",
   },
   categoryHeader: {
     paddingTop: theme.spacing(2),
@@ -205,4 +261,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default MenuListItemsStaff;
+export default MenuListItems;

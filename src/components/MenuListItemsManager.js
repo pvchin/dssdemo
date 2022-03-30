@@ -55,7 +55,7 @@ const MenuListItems = () => {
         </ListItem>
       </Link>
 
-      <Link to="/items">
+      {/* <Link to="/items">
         <ListItem button>
           <ListItemIcon className={classes.itemIcon}>
             <FlightIcon />
@@ -65,8 +65,8 @@ const MenuListItems = () => {
             className={classes.categoryHeaderPrimary}
           />
         </ListItem>
-      </Link>
-      <Link to="/assets">
+      </Link> */}
+      {/* <Link to="/assets">
         <ListItem button>
           <ListItemIcon className={classes.itemIcon}>
             <FlightIcon />
@@ -76,7 +76,7 @@ const MenuListItems = () => {
             className={classes.categoryHeaderPrimary}
           />
         </ListItem>
-      </Link>
+      </Link> */}
 
       {/* <Link to="/allemployees">
         <ListItem button>

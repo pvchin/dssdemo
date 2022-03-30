@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import MaterialTable, { MTableToolbar } from "material-table";
-import { TextField, MenuItem, Button, Icon } from "@material-ui/core";
+import { TextField, MenuItem, Icon } from "@material-ui/core";
 import {
   Box,
+  Button,
   Heading,
   Divider,
   Grid,
@@ -269,17 +270,14 @@ export default function ExpenseTable() {
           <Divider />
           <Tabs>
             <TabList>
-             
               <Tab></Tab>
-             
             </TabList>
             <TabPanels>
-             
               <TabPanel>
                 <MaterialTable
                   columns={columns}
                   data={assets.filter((r) => r.status === "In Stock")}
-                  title="Assets Table Currently In Stock"
+                  title="Assets Items Currently In Stock"
                   icons={{
                     Add: (props) => <AddIcon />,
                     Edit: (props) => <CheckCircleOutlineOutlinedIcon />,
@@ -316,6 +314,7 @@ export default function ExpenseTable() {
                     },
                   ]}
                   options={{
+                    selection: true,
                     filtering: true,
                     headerStyle: {
                       backgroundColor: "orange",
@@ -327,12 +326,24 @@ export default function ExpenseTable() {
                     Toolbar: (props) => (
                       <div>
                         <MTableToolbar {...props} />
+                        <HStack p={2}>
+                          <Button
+                            type="submit"
+                            variant="solid"
+                            color="white"
+                            bgColor="red"
+                            //className={classes.button}
+                            onClick={(rowData) => { update_Expense(rowData) }}
+                          >
+                            Despatch
+                          </Button>
+                        
+                        </HStack>
                       </div>
                     ),
                   }}
                 />
               </TabPanel>
-             
             </TabPanels>
           </Tabs>
         </SimpleGrid>

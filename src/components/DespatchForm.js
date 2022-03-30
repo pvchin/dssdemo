@@ -84,12 +84,12 @@ const ExpenseForm = ({ formdata, setFormdata, handleDialogClose }) => {
     <div>
       <Paper className={classes.root}>
         <Typography variant="h5" component="h3">
-          DESPATCH ITEM
+          DESPATCH ITEMS
         </Typography>
         {/* <Typography component="p">Expense Claim Application</Typography> */}
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
+          {/* <div>
             <Controller
               name="itemno"
               control={control}
@@ -112,10 +112,10 @@ const ExpenseForm = ({ formdata, setFormdata, handleDialogClose }) => {
                   />
                 );
               }}
-              // rules={{ required: "Reason is required" }}
+              rules={{ required: "Reason is required" }}
             />
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <Controller
               name="desp"
               control={control}
@@ -137,9 +137,9 @@ const ExpenseForm = ({ formdata, setFormdata, handleDialogClose }) => {
                   />
                 );
               }}
-              // rules={{ required: "Reason is required" }}
+              rules={{ required: "Reason is required" }}
             />
-          </div>
+          </div> */}
 
           <div>
             <Controller
@@ -167,19 +167,48 @@ const ExpenseForm = ({ formdata, setFormdata, handleDialogClose }) => {
                     select
                   >
                     <MenuItem value="Warehouse">Warehouse</MenuItem>
-                    <MenuItem value="Operation Department">Operation Deparment</MenuItem>
+                    <MenuItem value="Operation Department">
+                      Operation Deparment
+                    </MenuItem>
                     <MenuItem value="Marketing Department">
                       Marketing Department
                     </MenuItem>
                   </TextField>
                 );
-                
-                
               }}
               //rules={{ required: "From Date is required" }}
             />
           </div>
 
+          <div>
+            <Controller
+              name="despatchdate"
+              control={control}
+              defaultValue={formdata.despatchdate}
+              render={({
+                field: { onChange, value },
+                fieldState: { error },
+              }) => {
+                return (
+                  <TextField
+                    label="Despatch Date"
+                    id="margin-normal5"
+                    name="despatchdate"
+                    type="date"
+                    defaultValue={formdata.despatchdate}
+                    className={classes.textField}
+                    onChange={onChange}
+                    error={!!error}
+                    helperText={error ? error.message : null}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                );
+              }}
+              // rules={{ required: "Reason is required" }}
+            />
+          </div>
           <div>
             <Controller
               name="remark"
@@ -205,7 +234,7 @@ const ExpenseForm = ({ formdata, setFormdata, handleDialogClose }) => {
               // rules={{ required: "Reason is required" }}
             />
           </div>
-        
+
           <div>
             <Button
               type="submit"

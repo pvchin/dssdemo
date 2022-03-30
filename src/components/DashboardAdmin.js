@@ -21,13 +21,14 @@ import Login from "./LoginForm";
 import Payrun from "./Payrun";
 import Payrunbatch from "./Payrunbatch";
 
-
 import {
   Home,
   AllEmployees,
   Leave,
   Assets,
   Items,
+  Despatch,
+  Receive,
   Expenses,
   Payslip,
   BatchPayslips,
@@ -37,6 +38,7 @@ import {
   Tables,
   Clients,
   Allowances,
+  Samples,
   DailyAllowances,
   // PrivateRoute,
   Error,
@@ -44,7 +46,11 @@ import {
 
 const drawerWidth = 240;
 
-export default function DashboardAdmin({ open, handleDrawerOpen, handleDrawerClose }) {
+export default function DashboardAdmin({
+  open,
+  handleDrawerOpen,
+  handleDrawerClose,
+}) {
   const classes = useStyles();
   //const [open, setOpen] = React.useState(true);
   const [login, setLogin] = React.useState(true);
@@ -105,6 +111,15 @@ export default function DashboardAdmin({ open, handleDrawerOpen, handleDrawerClo
             </Route>
             <Route exact path="/assets">
               <Assets />
+            </Route>
+            <Route exact path="/samples">
+              <Samples />
+            </Route>
+            <Route exact path="/despatch">
+              <Despatch />
+            </Route>
+            <Route exact path="/receive">
+              <Receive />
             </Route>
             <Route exact path="/allowances">
               <Allowances />

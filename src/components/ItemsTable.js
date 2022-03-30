@@ -40,11 +40,10 @@ import { useExpensesContext } from "../context/expenses_context";
 import { useEmployeesContext } from "../context/employees_context";
 import { CustomDialog } from "../helpers/CustomDialog";
 import { AlertDialogBox } from "../helpers/AlertDialogBox";
-import { useExpenses } from "./expenses/useExpenses";
-import { useAddExpenses } from "./expenses/useAddExpenses";
-import { useDeleteExpenses } from "./expenses/useDeleteExpenses";
-import { useUpdateExpenses } from "./expenses/useUpdateExpenses";
-import { items } from "../utils/constants";
+import { useAddItem } from "./items/useAddItem";
+import { useDeleteItem } from "./items/useDeleteItem";
+import { useUpdateItem } from "./items/useUpdateItem";
+import { useItems } from "./items/useItems";
 import ItemForm from "./ItemForm"
 
 const initial_form = {
@@ -64,24 +63,23 @@ const columns = [
     field: "desp",
     editable: "never",
   },
-
   {
-    title: "Status",
-    field: "status",
-    editComponent: (props) => (
-      <TextField
-        //defaultValue={props.value || null}
-        onChange={(e) => props.onChange(e.target.value)}
-        style={{ width: 100 }}
-        value={props.value}
-        select
-      >
-        <MenuItem value="Pending">Pending</MenuItem>
-        <MenuItem value="Approve">Approve</MenuItem>
-        <MenuItem value="Reject">Reject</MenuItem>
-        <MenuItem value="Cancel">Cancel</MenuItem>
-      </TextField>
-    ),
+    title: "Price",
+    field: "uprice",
+    type: "currency",
+    editable: "never",
+  },
+  {
+    title: "Qty Onhand",
+    field: "qty",
+    type: "numeric",
+    editable: "never",
+  },
+  {
+    title: "Min Qty Level",
+    field: "minqty",
+    type: "numeric",
+    editable: "never",
   },
 ];
 
@@ -89,11 +87,11 @@ export default function ExpenseTable() {
   const classes = useStyles();
   const toast = useCustomToast();
   const [isLoad, setIsLoad] = useState(false);
-  const { expenses, filter, setFilter, setExpenseId } = useExpenses();
-  const updateExpenses = useUpdateExpenses();
-  const addExpenses = useAddExpenses();
-  const deleteExpenses = useDeleteExpenses();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+   const { items } = useItems()
+  const updateItem = useUpdateItem();
+  const addItem = useAddItem();
+  const deleteItem = useDeleteItem()
+   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [expensesdata, setExpensesdata] = useState([]);
   const [alertSuccess, setAlertSuccess] = useState(false);
@@ -111,11 +109,11 @@ export default function ExpenseTable() {
     setIsExpenseEditingOff,
   } = useExpensesContext();
 
-  useEffect(() => {
-    setFilter(loginLevel.loginUserId);
-  }, []);
+  // useEffect(() => {
+  //   setFilter(loginLevel.loginUserId);
+  // }, []);
 
-  const add_Expense = async (data) => {
+  const add_Item = async (data) => {
     // const { id } = data;
     setFormdata(initial_form);
     setFormdata(initial_form);
@@ -124,7 +122,7 @@ export default function ExpenseTable() {
     // history.push("/singleexpense");
   };
 
-  const update_Expense = async (data) => {
+  const update_Item = async (data) => {
     const { id } = data;
     setFormdata({ ...data });
     setFormdata({ ...data });
@@ -135,7 +133,7 @@ export default function ExpenseTable() {
     // history.push("/singleexpense");
   };
 
-  const delete_Expense = (data) => {
+  const delete_Item = (data) => {
     const { id } = data;
     setEditExpenseID(id);
     handleAlertOpen();
@@ -162,7 +160,7 @@ export default function ExpenseTable() {
 
   const handleOnDeleteConfirm = () => {
     const id = editExpenseID;
-    deleteExpenses(id);
+    deleteItem(id);
   };
 
   return (
@@ -193,7 +191,7 @@ export default function ExpenseTable() {
               <TabPanel>
                 <MaterialTable
                   columns={columns}
-                  data={items.filter((r) => r.status === "In Stock")}
+                  data={items}
                   title="Items Table"
                   icons={{
                     Add: (props) => <AddIcon />,
@@ -210,7 +208,7 @@ export default function ExpenseTable() {
                       icon: "edit",
                       tooltip: "Edit Record",
                       onClick: (event, rowData) => {
-                        update_Expense(rowData);
+                        update_Item(rowData);
                       },
                     }),
                     (rowData) => ({
@@ -218,7 +216,7 @@ export default function ExpenseTable() {
                       icon: "delete",
                       tooltip: "Delete Record",
                       onClick: (event, rowData) => {
-                        delete_Expense(rowData);
+                        delete_Item(rowData);
                       },
                     }),
                     {
@@ -226,7 +224,7 @@ export default function ExpenseTable() {
                       tooltip: "Add Record",
                       isFreeAction: true,
                       onClick: (event, rowData) => {
-                        add_Expense(rowData);
+                        add_Item(rowData);
                       },
                     },
                   ]}
@@ -267,7 +265,7 @@ export default function ExpenseTable() {
                       icon: "edit",
                       tooltip: "Edit Record",
                       onClick: (event, rowData) => {
-                        update_Expense(rowData);
+                        update_Item(rowData);
                       },
                     }),
                     (rowData) => ({
@@ -275,7 +273,7 @@ export default function ExpenseTable() {
                       icon: "delete",
                       tooltip: "Delete Record",
                       onClick: (event, rowData) => {
-                        delete_Expense(rowData);
+                        delete_Item(rowData);
                       },
                     }),
                     {
@@ -283,7 +281,7 @@ export default function ExpenseTable() {
                       tooltip: "Add Record",
                       isFreeAction: true,
                       onClick: (event, rowData) => {
-                        add_Expense(rowData);
+                        add_Item(rowData);
                       },
                     },
                   ]}

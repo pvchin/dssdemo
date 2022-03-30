@@ -53,7 +53,10 @@ import WPExpiryViewStaff from "./WPExpiryViewStaff";
 import { useEmployees } from "./employees/useEmployees";
 import { useSingleEmployee } from "./employees/useSingleEmployee";
 import { EditIcon, ViewIcon } from "@chakra-ui/icons";
-import { items, assets } from "../utils/constants";
+//import { items, assets } from "../utils/constants";
+import { useItems } from "./items/useItems";
+import { useAssets } from "./assets/useAssets";
+import { useSamples } from "./samples/useSamples";
 
 const drawerWidth = 240;
 
@@ -63,6 +66,9 @@ const HomeStaff = () => {
   let history = useHistory();
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const { items } = useItems();
+  const { assets } = useAssets();
+  const { samples } = useSamples();
   const [loginLevel, setLoginLevel] = useRecoilState(loginLevelState);
   const { employees, setFilter, setEmployeeId } = useEmployees();
   const { singleemployee, setSingleEmployeeId } = useSingleEmployee();
@@ -189,148 +195,6 @@ const HomeStaff = () => {
               <Grid direction="row">
                 <Stack direction="row">
                   <Heading as="h4" size="md">
-                    Assets Testing In Progress
-                  </Heading>
-                  <Spacer />
-                  <IconButton
-                    // variant="outline"
-                    size="md"
-                    aria-label="Edit"
-                    icon={<EditIcon />}
-                    onClick={() => history.push("/leave")}
-                  />
-                </Stack>
-                <Grid templateColumns="repeat(25, 1fr)" gap={3} p={1}>
-                  <GridItem colSpan={3}>
-                    <Box w="100%">
-                      <Heading size="sm">Item No</Heading>
-                    </Box>
-                  </GridItem>
-                  <GridItem colSpan={6}>
-                    <Box w="100%">
-                      <Heading size="sm">Description</Heading>
-                    </Box>
-                  </GridItem>
-                  <GridItem colSpan={3}>
-                    <Box w="100%">
-                      <Heading size="sm">Received Date</Heading>
-                    </Box>
-                  </GridItem>
-                  <GridItem colSpan={3}>
-                    <Box w="100%">
-                      <Heading size="sm">From</Heading>
-                    </Box>
-                  </GridItem>
-                  <Box w="100%" colSpan={3}>
-                    <Heading size="sm">Overdue in Days</Heading>
-                  </Box>
-                </Grid>
-                {assets
-                  .filter((r) => r.status === "In Progress")
-                  .map((row) => {
-                    const overdue = differenceInDays(
-                      new Date(today),
-                      new Date(row.receiveddate)
-                    );
-                    return (
-                      <Grid
-                        key={row.id}
-                        templateColumns="repeat(25, 1fr)"
-                        gap={3}
-                        p={1}
-                      >
-                        <GridItem colSpan={3}>
-                          <Box w="100%">{row.itemno}</Box>
-                        </GridItem>
-                        <GridItem colSpan={6}>
-                          <Box w="100%">{row.desp}</Box>
-                        </GridItem>
-                        <GridItem colSpan={3}>
-                          <Box w="100%">{row.receiveddate}</Box>
-                        </GridItem>
-                        <GridItem colSpan={3}>
-                          <Box w="100%">{row.despatched}</Box>
-                        </GridItem>
-                        <GridItem colSpan={10}>
-                          <Box w="100%">{overdue}</Box>
-                        </GridItem>
-                      </Grid>
-                    );
-                  })}
-              </Grid>
-            </CardLayout2>
-          </Box>
-          <Box>
-            <CardLayout2>
-              <Grid direction="row">
-                <Stack direction="row">
-                  <Heading as="h4" size="md">
-                    Assets to be expired in 30 days
-                  </Heading>
-                  <Spacer />
-                  <IconButton
-                    // variant="outline"
-                    size="md"
-                    aria-label="Edit"
-                    icon={<EditIcon />}
-                    onClick={() => history.push("/leave")}
-                  />
-                </Stack>
-                <Grid templateColumns="repeat(20, 1fr)" gap={3} p={1}>
-                  <GridItem colSpan={3}>
-                    <Box w="100%">
-                      <Heading size="sm">Item No</Heading>
-                    </Box>
-                  </GridItem>
-                  <GridItem colSpan={10}>
-                    <Box w="100%">
-                      <Heading size="sm">Description</Heading>
-                    </Box>
-                  </GridItem>
-                  <GridItem colSpan={3}>
-                    <Box w="100%">
-                      <Heading size="sm">Expired Date</Heading>
-                    </Box>
-                  </GridItem>
-                  <GridItem colSpan={4}>
-                    <Box w="100%">
-                      <Heading size="sm">Status</Heading>
-                    </Box>
-                  </GridItem>
-                </Grid>
-                {assets
-                  .filter((r) => r.tobeexpiry)
-                  .map((row) => {
-                    return (
-                      <Grid
-                        key={row.id}
-                        templateColumns="repeat(20, 1fr)"
-                        gap={3}
-                        p={1}
-                      >
-                        <GridItem colSpan={3}>
-                          <Box w="100%">{row.itemno}</Box>
-                        </GridItem>
-                        <GridItem colSpan={10}>
-                          <Box w="100%">{row.desp}</Box>
-                        </GridItem>
-                        <GridItem colSpan={3}>
-                          <Box w="100%">{row.expiry}</Box>
-                        </GridItem>
-                        <GridItem colSpan={4}>
-                          <Box w="100%">{row.status}</Box>
-                        </GridItem>
-                      </Grid>
-                    );
-                  })}
-              </Grid>
-            </CardLayout2>
-          </Box>
-          <Box>
-            <CardLayout2>
-              <Grid direction="row">
-                <Stack direction="row">
-                  <Heading as="h4" size="md">
                     Items below minimum level
                   </Heading>
                   <Spacer />
@@ -368,7 +232,7 @@ const HomeStaff = () => {
                   </Box>
                 </Grid>
                 {items
-                  .filter((r) => r.toorder)
+                  .filter((r) => r.qty < r.minqty)
                   .map((row) => {
                     return (
                       <Grid
@@ -391,6 +255,154 @@ const HomeStaff = () => {
                         </GridItem>
                         <GridItem colSpan={10}>
                           <Box w="100%">{row.supplier}</Box>
+                        </GridItem>
+                      </Grid>
+                    );
+                  })}
+              </Grid>
+            </CardLayout2>
+          </Box>
+          <Box>
+            <CardLayout2>
+              <Grid direction="row">
+                <Stack direction="row">
+                  <Heading as="h4" size="md">
+                    Assets to be expired in 30 days
+                  </Heading>
+                  <Spacer />
+                  <IconButton
+                    // variant="outline"
+                    size="md"
+                    aria-label="Edit"
+                    icon={<EditIcon />}
+                    onClick={() => history.push("/leave")}
+                  />
+                </Stack>
+                <Grid templateColumns="repeat(20, 1fr)" gap={3} p={1}>
+                  <GridItem colSpan={3}>
+                    <Box w="100%">
+                      <Heading size="sm">Asset No</Heading>
+                    </Box>
+                  </GridItem>
+                  <GridItem colSpan={5}>
+                    <Box w="100%">
+                      <Heading size="sm">Description</Heading>
+                    </Box>
+                  </GridItem>
+                  <GridItem colSpan={5}>
+                    <Box w="100%">
+                      <Heading size="sm">Client</Heading>
+                    </Box>
+                  </GridItem>
+                  <GridItem colSpan={3}>
+                    <Box w="100%">
+                      <Heading size="sm">Expired Date</Heading>
+                    </Box>
+                  </GridItem>
+                  <GridItem colSpan={4}>
+                    <Box w="100%">
+                      <Heading size="sm">Status</Heading>
+                    </Box>
+                  </GridItem>
+                </Grid>
+                {assets
+                  .filter((r) => r.isexpiry)
+                  .map((row) => {
+                    return (
+                      <Grid
+                        key={row.id}
+                        templateColumns="repeat(20, 1fr)"
+                        gap={3}
+                        p={1}
+                      >
+                        <GridItem colSpan={3}>
+                          <Box w="100%">{row.assetno}</Box>
+                        </GridItem>
+                        <GridItem colSpan={5}>
+                          <Box w="100%">{row.desp}</Box>
+                        </GridItem>
+                        <GridItem colSpan={5}>
+                          <Box w="100%">{row.client}</Box>
+                        </GridItem>
+                        <GridItem colSpan={3}>
+                          <Box w="100%">{row.expiry}</Box>
+                        </GridItem>
+                        <GridItem colSpan={4}>
+                          <Box w="100%">{row.status}</Box>
+                        </GridItem>
+                      </Grid>
+                    );
+                  })}
+              </Grid>
+            </CardLayout2>
+          </Box>
+          <Box>
+            <CardLayout2>
+              <Grid direction="row">
+                <Stack direction="row">
+                  <Heading as="h4" size="md">
+                    Samples being pending more than 14 days
+                  </Heading>
+                  <Spacer />
+                  <IconButton
+                    // variant="outline"
+                    size="md"
+                    aria-label="Edit"
+                    icon={<EditIcon />}
+                    onClick={() => history.push("/leave")}
+                  />
+                </Stack>
+                <Grid templateColumns="repeat(20, 1fr)" gap={3} p={1}>
+                  <GridItem colSpan={3}>
+                    <Box w="100%">
+                      <Heading size="sm">Sample Id</Heading>
+                    </Box>
+                  </GridItem>
+                  <GridItem colSpan={5}>
+                    <Box w="100%">
+                      <Heading size="sm">Description</Heading>
+                    </Box>
+                  </GridItem>
+                  <GridItem colSpan={5}>
+                    <Box w="100%">
+                      <Heading size="sm">Client</Heading>
+                    </Box>
+                  </GridItem>
+                  <GridItem colSpan={3}>
+                    <Box w="100%">
+                      <Heading size="sm">Received Date</Heading>
+                    </Box>
+                  </GridItem>
+                  <GridItem colSpan={4}>
+                    <Box w="100%">
+                      <Heading size="sm">Status</Heading>
+                    </Box>
+                  </GridItem>
+                </Grid>
+                {samples
+                  .filter((r) => r.isdue)
+                  .map((row) => {
+                    return (
+                      <Grid
+                        key={row.id}
+                        templateColumns="repeat(20, 1fr)"
+                        gap={3}
+                        p={1}
+                      >
+                        <GridItem colSpan={3}>
+                          <Box w="100%">{row.sampleid}</Box>
+                        </GridItem>
+                        <GridItem colSpan={5}>
+                          <Box w="100%">{row.desp}</Box>
+                        </GridItem>
+                        <GridItem colSpan={5}>
+                          <Box w="100%">{row.client}</Box>
+                        </GridItem>
+                        <GridItem colSpan={3}>
+                          <Box w="100%">{row.recdate}</Box>
+                        </GridItem>
+                        <GridItem colSpan={4}>
+                          <Box w="100%">{row.status}</Box>
                         </GridItem>
                       </Grid>
                     );

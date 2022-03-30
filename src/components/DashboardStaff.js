@@ -6,16 +6,15 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import Chart from "./Chart";
 // import Deposits from "./Deposits";
 // import Orders from "./Orders";
-
 import Appbanner from "./Appbanner";
-import Example from "./Example8";
+import Example from "./Example6";
 import SideDrawer from "./SideDrawer";
 import SingleEmployee from "./SingleEmployee";
-import SingleEmployeeStaff from "./SingleEmployeeStaff";
+import SingleEmployeeStaff from "./SingleEmployeeStaff old";
 import SingleLeave from "./SingleLeave";
 import SingleExpense from "./SingleExpense";
 import SingleDailyAllowance from "./SingleDailyAllowance";
-import SingleDailyAllowsDetlsStaff from "./SingleDailyAllowsDetlsStaff";
+import SingleDailyAllowsDetls from "./SingleDailyAllowsDetls";
 import BatchDailyAllowances from "./BatchDailyAllowances";
 import SinglePayslip from "./SinglePayslip";
 import Login from "./LoginForm";
@@ -24,16 +23,14 @@ import Payrunbatch from "./Payrunbatch";
 
 import {
   Home,
-  Assets,
   AllEmployees,
-  Despatch,
   Leave,
+  Assets,
+  Items,
+  Despatch,
   Receive,
-  Hoc,
-  LeaveStaff,
-  TrainingsStaff,
-  ExpensesStaff,
-  PayslipStaff,
+  Expenses,
+  Payslip,
   BatchPayslips,
   Payroll,
   Departments,
@@ -41,20 +38,22 @@ import {
   Tables,
   Clients,
   Allowances,
-  DailyAllowancesStaff,
+  Samples,
+  DailyAllowances,
   // PrivateRoute,
   Error,
 } from "../pages";
 
 const drawerWidth = 240;
 
-export default function DashboardMain({
+export default function DashboardAdmin({
   open,
   handleDrawerOpen,
   handleDrawerClose,
 }) {
   const classes = useStyles();
   //const [open, setOpen] = React.useState(true);
+  const [login, setLogin] = React.useState(true);
 
   // const handleDrawerOpen = () => {
   //   setOpen(true);
@@ -65,6 +64,9 @@ export default function DashboardMain({
 
   //  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  if (!login) {
+    return <Login setLogin={setLogin} />;
+  }
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -73,7 +75,8 @@ export default function DashboardMain({
           handleDrawerOpen={handleDrawerOpen}
           handleDrawerClose={handleDrawerClose}
           open={open}
-          title="AppSmiths Sutera Sdn Bhd"
+          setLogin={setLogin}
+          title="Human Resource Management System - AppSmiths Sutera Sdn Bhd"
         /> */}
 
         <SideDrawer
@@ -90,55 +93,11 @@ export default function DashboardMain({
             {/* <Route exact path="/home">
               <Home />
             </Route> */}
-            {/* <Route exact path="/allemployees">
+            <Route exact path="/allemployees">
               <AllEmployees />
-            </Route> */}
-            <Route exact path="/payroll">
-              <Payroll />
             </Route>
-            <Route exact path="/payslips">
-              <PayslipStaff />
-            </Route>
-            <Route exact path="/singlepayslip">
-              <SinglePayslip />
-            </Route>
-            <Route exact path="/batchpayslips">
-              <BatchPayslips />
-            </Route>
-            <Route exact path="/leave">
-              <LeaveStaff />
-            </Route>
-            <Route exact path="/despatch">
-              <Despatch />
-            </Route>
-            <Route exact path="/receive">
-              <Receive />
-            </Route>
-            <Route exact path="/hoc">
-              <Hoc />
-            </Route>
-            <Route exact path="/trainings">
-              <TrainingsStaff />
-            </Route>
-            {/* <Route exact path="/payrun">
-              <Payrun />
-            </Route> */}
-            {/* <Route exact path="/payrunbatch">
-              <Payrunbatch />
-            </Route> */}
-            <Route exact path="/dailyallowances">
-              <DailyAllowancesStaff />
-            </Route>
-            <Route exact path="/singledailyallowsdetlstable">
-              <SingleDailyAllowsDetlsStaff />
-            </Route>
-            <Route exact path="/expenses">
-              <ExpensesStaff />
-            </Route>
-            <Route exact path="/assets">
-              <Assets />
-            </Route>
-            {/* <Route exact path="/departments">
+
+            <Route exact path="/departments">
               <Departments />
             </Route>
             <Route exact path="/designation">
@@ -147,17 +106,32 @@ export default function DashboardMain({
             <Route exact path="/tables">
               <Tables />
             </Route>
+            <Route exact path="/items">
+              <Items />
+            </Route>
+            <Route exact path="/assets">
+              <Assets />
+            </Route>
+            <Route exact path="/samples">
+              <Samples />
+            </Route>
+            <Route exact path="/despatch">
+              <Despatch />
+            </Route>
+            <Route exact path="/receive">
+              <Receive />
+            </Route>
             <Route exact path="/allowances">
               <Allowances />
             </Route>
             <Route exact path="/clients">
               <Clients />
-            </Route> */}
+            </Route>
             <Route exact path="/example">
               <Example />
             </Route>
             <Route exact path="/singleemployee">
-              <SingleEmployeeStaff />
+              <SingleEmployee />
             </Route>
             <Route exact path="/singleleave">
               <SingleLeave />
@@ -165,14 +139,11 @@ export default function DashboardMain({
             <Route exact path="/singleexpense">
               <SingleExpense />
             </Route>
-            <Route exact path="/singledailyallowance">
-              <SingleDailyAllowance />
-            </Route>
-            <Route exact path="/batchdailyallowances">
-              <BatchDailyAllowances />
-            </Route>
             <Route exact path="/error">
               <Error />
+            </Route>
+            <Route exact path="/leave">
+              <Leave />
             </Route>
             {/* <Route
               exact

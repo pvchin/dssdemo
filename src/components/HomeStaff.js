@@ -40,7 +40,10 @@ import WPExpiryViewStaff from "./WPExpiryViewStaff";
 import { useEmployees } from "./employees/useEmployees";
 import { useSingleEmployee } from "./employees/useSingleEmployee";
 import { EditIcon, ViewIcon } from "@chakra-ui/icons";
-import { items, assets } from "../utils/constants"
+//import { items, assets, samples } from "../utils/constants";
+import { useItems } from "./items/useItems";
+import { useAssets } from "./assets/useAssets";
+import { useSamples } from "./samples/useSamples";
 
 const drawerWidth = 240;
 
@@ -50,6 +53,9 @@ const HomeStaff = () => {
   let history = useHistory();
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const { items } = useItems()
+  const { assets } = useAssets()
+  const { samples} = useSamples()
   const [loginLevel, setLoginLevel] = useRecoilState(loginLevelState);
   const { employees, setFilter, setEmployeeId } = useEmployees();
   const { singleemployee, setSingleEmployeeId } = useSingleEmployee();
@@ -187,7 +193,7 @@ const HomeStaff = () => {
       </div>
       <Container maxWidth="xl" className={classes.container}>
         <Stack direction="column">
-          {/* <Box>
+          <Box>
             <CardLayout2>
               <Grid direction="row">
                 <Stack direction="row">
@@ -205,23 +211,31 @@ const HomeStaff = () => {
                 </Stack>
                 <Grid templateColumns="repeat(25, 1fr)" gap={3} p={1}>
                   <GridItem colSpan={3}>
-                    <Box w="100%">Item No</Box>
+                    <Box w="100%">
+                      <Heading size="sm">Item No</Heading>
+                    </Box>
                   </GridItem>
                   <GridItem colSpan={6}>
-                    <Box w="100%">Description</Box>
+                    <Box w="100%">
+                      <Heading size="sm">Description</Heading>
+                    </Box>
                   </GridItem>
                   <GridItem colSpan={3}>
-                    <Box w="100%">Qty on Hand</Box>
+                    <Box w="100%">
+                      <Heading size="sm">Qty On Hand</Heading>
+                    </Box>
                   </GridItem>
                   <GridItem colSpan={3}>
-                    <Box w="100%">Min Level</Box>
+                    <Box w="100%">
+                      <Heading size="sm">Min Level</Heading>
+                    </Box>
                   </GridItem>
-                  <GridItem colSpan={10}>
-                    <Box w="100%">Supplier</Box>
-                  </GridItem>
+                  <Box w="100%">
+                    <Heading size="sm">Supplier</Heading>
+                  </Box>
                 </Grid>
                 {items
-                  .filter((r) => r.toorder)
+                  .filter((r) => r.qty < r.minqty)
                   .map((row) => {
                     return (
                       <Grid
@@ -250,7 +264,7 @@ const HomeStaff = () => {
                   })}
               </Grid>
             </CardLayout2>
-          </Box> */}
+          </Box>
           <Box>
             <CardLayout2>
               <Grid direction="row">
@@ -269,21 +283,33 @@ const HomeStaff = () => {
                 </Stack>
                 <Grid templateColumns="repeat(20, 1fr)" gap={3} p={1}>
                   <GridItem colSpan={3}>
-                    <Box w="100%">Item No</Box>
+                    <Box w="100%">
+                      <Heading size="sm">Asset No</Heading>
+                    </Box>
                   </GridItem>
-                  <GridItem colSpan={10}>
-                    <Box w="100%">Description</Box>
+                  <GridItem colSpan={5}>
+                    <Box w="100%">
+                      <Heading size="sm">Description</Heading>
+                    </Box>
+                  </GridItem>
+                  <GridItem colSpan={5}>
+                    <Box w="100%">
+                      <Heading size="sm">Client</Heading>
+                    </Box>
                   </GridItem>
                   <GridItem colSpan={3}>
-                    <Box w="100%">Expiry Date</Box>
+                    <Box w="100%">
+                      <Heading size="sm">Expired Date</Heading>
+                    </Box>
                   </GridItem>
                   <GridItem colSpan={4}>
-                    <Box w="100%">Status</Box>
+                    <Box w="100%">
+                      <Heading size="sm">Status</Heading>
+                    </Box>
                   </GridItem>
-                
                 </Grid>
                 {assets
-                  .filter((r) => r.tobeexpiry)
+                  .filter((r) => r.isexpiry)
                   .map((row) => {
                     return (
                       <Grid
@@ -293,10 +319,13 @@ const HomeStaff = () => {
                         p={1}
                       >
                         <GridItem colSpan={3}>
-                          <Box w="100%">{row.itemno}</Box>
+                          <Box w="100%">{row.assetno}</Box>
                         </GridItem>
-                        <GridItem colSpan={10}>
+                        <GridItem colSpan={5}>
                           <Box w="100%">{row.desp}</Box>
+                        </GridItem>
+                        <GridItem colSpan={5}>
+                          <Box w="100%">{row.client}</Box>
                         </GridItem>
                         <GridItem colSpan={3}>
                           <Box w="100%">{row.expiry}</Box>
@@ -304,7 +333,80 @@ const HomeStaff = () => {
                         <GridItem colSpan={4}>
                           <Box w="100%">{row.status}</Box>
                         </GridItem>
-                      
+                      </Grid>
+                    );
+                  })}
+              </Grid>
+            </CardLayout2>
+          </Box>
+          <Box>
+            <CardLayout2>
+              <Grid direction="row">
+                <Stack direction="row">
+                  <Heading as="h4" size="md">
+                    Samples being pending more than 14 days
+                  </Heading>
+                  <Spacer />
+                  <IconButton
+                    // variant="outline"
+                    size="md"
+                    aria-label="Edit"
+                    icon={<EditIcon />}
+                    onClick={() => history.push("/leave")}
+                  />
+                </Stack>
+                <Grid templateColumns="repeat(20, 1fr)" gap={3} p={1}>
+                  <GridItem colSpan={3}>
+                    <Box w="100%">
+                      <Heading size="sm">Sample Id</Heading>
+                    </Box>
+                  </GridItem>
+                  <GridItem colSpan={5}>
+                    <Box w="100%">
+                      <Heading size="sm">Description</Heading>
+                    </Box>
+                  </GridItem>
+                  <GridItem colSpan={5}>
+                    <Box w="100%">
+                      <Heading size="sm">Client</Heading>
+                    </Box>
+                  </GridItem>
+                  <GridItem colSpan={3}>
+                    <Box w="100%">
+                      <Heading size="sm">Received Date</Heading>
+                    </Box>
+                  </GridItem>
+                  <GridItem colSpan={4}>
+                    <Box w="100%">
+                      <Heading size="sm">Status</Heading>
+                    </Box>
+                  </GridItem>
+                </Grid>
+                {samples
+                  .filter((r) => r.isdue)
+                  .map((row) => {
+                    return (
+                      <Grid
+                        key={row.id}
+                        templateColumns="repeat(20, 1fr)"
+                        gap={3}
+                        p={1}
+                      >
+                        <GridItem colSpan={3}>
+                          <Box w="100%">{row.sampleid}</Box>
+                        </GridItem>
+                        <GridItem colSpan={5}>
+                          <Box w="100%">{row.desp}</Box>
+                        </GridItem>
+                        <GridItem colSpan={5}>
+                          <Box w="100%">{row.client}</Box>
+                        </GridItem>
+                        <GridItem colSpan={3}>
+                          <Box w="100%">{row.recdate}</Box>
+                        </GridItem>
+                        <GridItem colSpan={4}>
+                          <Box w="100%">{row.status}</Box>
+                        </GridItem>
                       </Grid>
                     );
                   })}

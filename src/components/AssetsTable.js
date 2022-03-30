@@ -40,24 +40,24 @@ import { useExpensesContext } from "../context/expenses_context";
 import { useEmployeesContext } from "../context/employees_context";
 import { CustomDialog } from "../helpers/CustomDialog";
 import { AlertDialogBox } from "../helpers/AlertDialogBox";
-import { useExpenses } from "./expenses/useExpenses";
-import { useAddExpenses } from "./expenses/useAddExpenses";
-import { useDeleteExpenses } from "./expenses/useDeleteExpenses";
-import { useUpdateExpenses } from "./expenses/useUpdateExpenses";
-import { assets } from "../utils/constants";
+import { useAssets } from "./assets/useAssets"
+import { useAddAsset } from "./assets/useAddAsset"
+import { useDeleteAsset } from "./assets/useDeleteAsset"
+import { useUpdateAsset } from "./assets/useUpdateAsset"
 import AssetForm from "./AssetForm"
 
 const initial_form = {
-  name: "",
+  assetno: "",
+  desp: "",
   date: "",
-  purchased_from: "",
-  description: "",
-  status: "Pending",
-  amount: 0,
+  type: "",
+  client: "",
+  remark: "",
+  status: "",
 };
 
 const columns = [
-  { title: "Asset No", field: "itemno", editable: "never" },
+  { title: "Asset No", field: "assetno", editable: "never" },
 
   {
     title: "Description",
@@ -91,7 +91,7 @@ const columns = [
 ];
 
 const columns_despatch = [
-  { title: "Asset No", field: "itemno", editable: "never" },
+  { title: "Asset No", field: "assetno", editable: "never" },
 
   {
     title: "Description",
@@ -131,7 +131,7 @@ const columns_despatch = [
 ];
 
 const columns_inprogress = [
-  { title: "Asset No", field: "itemno", editable: "never" },
+  { title: "Asset No", field: "assetno", editable: "never" },
 
   {
     title: "Description",
@@ -172,10 +172,10 @@ export default function ExpenseTable() {
   const classes = useStyles();
   const toast = useCustomToast();
   const [isLoad, setIsLoad] = useState(false);
-  const { expenses, filter, setFilter, setExpenseId } = useExpenses();
-  const updateExpenses = useUpdateExpenses();
-  const addExpenses = useAddExpenses();
-  const deleteExpenses = useDeleteExpenses();
+  const { assets } = useAssets()
+  const updateAsset = useUpdateAsset();
+  const addAsset = useAddAsset();
+  const deleteAsset = useDeleteAsset();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [expensesdata, setExpensesdata] = useState([]);
@@ -194,9 +194,9 @@ export default function ExpenseTable() {
     setIsExpenseEditingOff,
   } = useExpensesContext();
 
-  useEffect(() => {
-    setFilter(loginLevel.loginUserId);
-  }, []);
+  // useEffect(() => {
+  //   setFilter(loginLevel.loginUserId);
+  // }, []);
 
   const add_Expense = async (data) => {
     // const { id } = data;
@@ -245,7 +245,7 @@ export default function ExpenseTable() {
 
   const handleOnDeleteConfirm = () => {
     const id = editExpenseID;
-    deleteExpenses(id);
+    deleteAsset(id);
   };
 
   return (
@@ -271,7 +271,7 @@ export default function ExpenseTable() {
             <TabList>
               <Tab>In Stock</Tab>
               <Tab>Despatched</Tab>
-              <Tab>In Progress</Tab>
+              <Tab>Received</Tab>
             </TabList>
             <TabPanels>
               <TabPanel>
@@ -391,7 +391,7 @@ export default function ExpenseTable() {
               <TabPanel>
                 <MaterialTable
                   columns={columns_inprogress}
-                  data={assets.filter((r) => r.status === "In Progress")}
+                  data={assets.filter((r) => r.status === "Received")}
                   title="Assets Table"
                   icons={{
                     Add: (props) => <AddIcon />,

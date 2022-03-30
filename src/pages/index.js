@@ -25,6 +25,7 @@ import Assets from "./AssetsPage"
 import Items from "./ItemsPage"
 import Despatch from "./DespatchPage"
 import Receive from "./ReceivedPage"
+import Samples from "./SamplesPage"
 
 export {
   Home,
@@ -52,6 +53,7 @@ export {
   DailyAllowancesStaff,
   Clients,
   Allowances,
+  Samples,
   PrivateRoute,
   Error,
 };

@@ -77,7 +77,7 @@ const Appbanner = ({
           >
             <Heading size="sm">Staff</Heading>
           </Button>
-          {loginLevel.loginRole > 1 && loginLevel.loginRole !== 3 && (
+          {/* {loginLevel.loginRole > 1 && loginLevel.loginRole !== 3 && (
             <Button
               colorScheme="white"
               aria-label="Admin"
@@ -88,7 +88,7 @@ const Appbanner = ({
             >
               <Heading size="sm">Admin</Heading>
             </Button>
-          )}
+          )} */}
           {/* {loginLevel.loginRole > 2 && (
             <Button
               colorScheme="white"

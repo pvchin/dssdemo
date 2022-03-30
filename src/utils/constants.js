@@ -34,8 +34,13 @@ export const hoclookup_url = "/api/hoclookup";
 export const hoclocation_url = "/api/hoclocation";
 export const hoccategory_url = "/api/hoccategory";
 export const yearendleavebal_url = "/api/yearendleavebal";
+export const items_url = "/api/items";
+export const itemshistory_url = "/api/itemshistory";
+export const assets_url = "/api/assets";
+export const assetshistory_url = "/api/assetshistory";
+export const samples_url = "/api/samples";
+export const sampleshistory_url = "/api/sampleshistory";
 export const payroll_endmonth_day = "25";
-
 
 export const items = [
   {
@@ -270,7 +275,6 @@ export const assets = [
     receiveddate: "2022-03-15",
   },
 ];
-
 
 export const headLeaveTableCells = [
   {

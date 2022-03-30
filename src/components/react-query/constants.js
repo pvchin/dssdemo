@@ -39,4 +39,10 @@ export const queryKeys = {
   hocwhy: "hocwhy",
   hocwhydetails: "hocwhydetails",
   yearendleavebal: "yearendleavebal",
+  items: "items",
+  itemshistory: "itemshistory",
+  assets: "assets",
+  assetshistory: "assetshistory",
+  samples: "samples",
+  sampleshistory: "sampleshistory",
 };
