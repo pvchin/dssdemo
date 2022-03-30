@@ -148,7 +148,7 @@ const MenuListItems = () => {
         <ListItemIcon className={classes.itemIcon}>
           <LayersIcon />
         </ListItemIcon>
-        <ListItemText primary="Sampless" className={classes.item} />
+        <ListItemText primary="Samples" className={classes.item} />
         {openSampleTable ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={openSampleTable} timeout="auto" unmountOnExit>
