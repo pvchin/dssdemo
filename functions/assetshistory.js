@@ -1,5 +1,5 @@
 const formattedReturn = require("./formattedReturn");
-const getAssetshistory = require("./assetshistoryTable/getAssetshistory");
+const getAssetshistory = require("./assetshistoryTable/getAssetshistory")
 const createdAssethistory = require("./assetshistoryTable/createAssetshistory");
 const deleteAssethistory = require("./assetshistoryTable/deleteAssetshistory");
 const updateAssethistory = require("./assetshistoryTable/updateAssetshistory");
