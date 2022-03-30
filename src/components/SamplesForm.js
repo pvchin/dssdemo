@@ -148,6 +148,14 @@ const ExpenseForm = ({ formdata, setFormdata, handleDialogClose }) => {
     handleDialogClose();
   };
 
+  const handleImport = () => {
+
+     toast({
+       title: `Results data has been imported!`,
+       status: "success",
+     });
+  }
+
   return (
     <div>
       <Paper className={classes.root}>
@@ -229,33 +237,35 @@ const ExpenseForm = ({ formdata, setFormdata, handleDialogClose }) => {
                     </div>
 
                     <div>
-                      <FormControl>
-                        <Controller
-                          control={control}
-                          name="assetno"
-                          defaultValue={formdata.assetno}
-                          render={({ field: { onChange, value, ref } }) => (
-                            <InputGroup>
-                              <HStack w="100%" py={1}>
-                                <InputLeftAddon
-                                  children="Asset No"
-                                  minWidth={field_width}
-                                />
-                                <Input
-                                  name="assetno"
-                                  value={value}
-                                  width="full"
-                                  onChange={onChange}
-                                  borderColor="gray.400"
-                                  //textTransform="capitalize"
-                                  ref={ref}
-                                  placeholder="asset no"
-                                />
-                              </HStack>
-                            </InputGroup>
-                          )}
-                        />
-                      </FormControl>
+                      <HStack>
+                        <FormControl>
+                          <Controller
+                            control={control}
+                            name="assetno"
+                            defaultValue={formdata.assetno}
+                            render={({ field: { onChange, value, ref } }) => (
+                              <InputGroup>
+                                <HStack w="100%" py={1}>
+                                  <InputLeftAddon
+                                    children="Asset No"
+                                    minWidth={field_width}
+                                  />
+                                  <Input
+                                    name="assetno"
+                                    value={value}
+                                    width="full"
+                                    onChange={onChange}
+                                    borderColor="gray.400"
+                                    //textTransform="capitalize"
+                                    ref={ref}
+                                    placeholder="asset no"
+                                  />
+                                </HStack>
+                              </InputGroup>
+                            )}
+                          />
+                        </FormControl>
+                      </HStack>
                     </div>
                     <div>
                       <FormControl>
@@ -280,8 +290,12 @@ const ExpenseForm = ({ formdata, setFormdata, handleDialogClose }) => {
                                   ref={ref}
                                   //placeholder="category"
                                 >
-                                  <option value="Marketing Department">Marketing Department</option>
-                                  <option value="Operation Department">Operation Department</option>
+                                  <option value="Marketing Department">
+                                    Marketing Department
+                                  </option>
+                                  <option value="Operation Department">
+                                    Operation Department
+                                  </option>
                                   <option value="Warehouse">Warehouse</option>
                                 </Select>
                               </HStack>
@@ -372,7 +386,6 @@ const ExpenseForm = ({ formdata, setFormdata, handleDialogClose }) => {
                 <TabPanel>
                   <Box>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                     
                       <div>
                         <FormControl>
                           <Controller
@@ -406,35 +419,38 @@ const ExpenseForm = ({ formdata, setFormdata, handleDialogClose }) => {
                           />
                         </FormControl>
                       </div>
-                       <div>
-                        <FormControl>
-                          <Controller
-                            control={control}
-                            name="datapath"
-                            defaultValue={formdata.datapath}
-                            render={({ field: { onChange, value, ref } }) => (
-                              <InputGroup>
-                                <HStack w="100%" py={1}>
-                                  <InputLeftAddon
-                                    children="Data Path"
-                                    minWidth={field_width}
-                                  />
-                                  <Input
-                                    name="datapath"
-                                    value={value}
-                                    type="file"
-                                    width="full"
-                                    onChange={onChange}
-                                    borderColor="gray.400"
-                                    //textTransform="capitalize"
-                                    ref={ref}
-                                    placeholder="data path"
-                                  />
-                                </HStack>
-                              </InputGroup>
-                            )}
-                          />
-                        </FormControl>
+                      <div>
+                        <HStack>
+                          <FormControl>
+                            <Controller
+                              control={control}
+                              name="datapath"
+                              defaultValue={formdata.datapath}
+                              render={({ field: { onChange, value, ref } }) => (
+                                <InputGroup>
+                                  <HStack w="100%" py={1}>
+                                    <InputLeftAddon
+                                      children="Data Path"
+                                      minWidth={field_width}
+                                    />
+                                    <Input
+                                      name="datapath"
+                                      value={value}
+                                      type="file"
+                                      width="full"
+                                      onChange={onChange}
+                                      borderColor="gray.400"
+                                      //textTransform="capitalize"
+                                      ref={ref}
+                                      placeholder="data path"
+                                    />
+                                  </HStack>
+                                </InputGroup>
+                              )}
+                            />
+                          </FormControl>
+                          <Button variant="contained" onClick={handleImport}>Import</Button>
+                        </HStack>
                       </div>
                       <div></div>
                       <div>
